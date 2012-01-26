@@ -305,7 +305,7 @@ if ( $nowrap == "true" && $ps_count - 1 != $slideID || $nowrap != "true" ) { $sl
 			if ( $showdesc == "true" ) {			
 				$description = $attachment->post_content;
 				if ( $description ) { 
-					$slideshow .= '<p class="slideshow-description">'. wpautop( $description ) .'</p>'; 
+					$slideshow .= '<div class="slideshow-description">'. wpautop( $description ) .'</div>'; 
 				}
 			}
 			if ( $showtitles == "true" || $showcaps == "true" || $showdesc == "true" ) {
