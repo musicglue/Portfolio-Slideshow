@@ -19,7 +19,7 @@ define( 'PORTFOLIO_SLIDESHOW_LOCATION', plugin_basename(__FILE__) );
 
 define ( 'PORTFOLIO_SLIDESHOW_URL', plugins_url( '' ,  __FILE__ ) );
 
-define( "PORTFOLIO_SLIDESHOW_VERSION", "1.3.4" );
+define( "PORTFOLIO_SLIDESHOW_VERSION", "1.3.5" );
 
 //our main functions file
 require ( PORTFOLIO_SLIDESHOW_PATH . 'inc/functions.php'); 

@@ -189,6 +189,7 @@ Attention upgraders! The plugin has been completely re-written based on our Port
 1.3.5 
 
 * Compatibility fix for WordPress multisite networks.
+* Fixed style issue with descriptions.
 
 1.3.4
 
