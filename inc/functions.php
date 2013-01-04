@@ -119,18 +119,18 @@ if ( !function_exists('ps_setup') ) {
 			}
 			
 			//malsup cycle script
-			wp_register_script( 'cycle', plugins_url( 'js/jquery.cycle.all.min.js', dirname(__FILE__) ), false, '2.99', true ); 
+			wp_register_script( 'cycle', PORTFOLIO_SLIDESHOW_URL.'js/jquery.cycle.all.min.js', false, '2.99', true ); 
 			wp_enqueue_script( 'cycle' );
 			
 		
 			if ( $ps_options['debug'] == "true" ) {
 				//our script
-				wp_enqueue_script( 'portfolio-slideshow', plugins_url( 'js/portfolio-slideshow.js', dirname(__FILE__) ), false, $ps_options['version'], true ); 
+				wp_enqueue_script( 'portfolio-slideshow', PORTFOLIO_SLIDESHOW_URL.'js/portfolio-slideshow.js', false, $ps_options['version'], true ); 
 				//our style 
-				wp_enqueue_style( 'portfolio_slideshow', plugins_url( "css/portfolio-slideshow.css", dirname(__FILE__) ), false, $ps_options['version'], 'screen' );
+				wp_enqueue_style( 'portfolio_slideshow', PORTFOLIO_SLIDESHOW_URL."css/portfolio-slideshow.css", false, $ps_options['version'], 'screen' );
 			} else {
-				wp_enqueue_script( 'portfolio-slideshow', plugins_url( 'js/portfolio-slideshow.min.js', dirname(__FILE__) ), false, $ps_options['version'], true ); 
-				wp_enqueue_style( 'portfolio_slideshow', plugins_url( "css/portfolio-slideshow.min.css", dirname(__FILE__) ), false, $ps_options['version'], 'screen' ); 
+				wp_enqueue_script( 'portfolio-slideshow', PORTFOLIO_SLIDESHOW_URL.'js/portfolio-slideshow.min.js', false, $ps_options['version'], true ); 
+				wp_enqueue_style( 'portfolio_slideshow', PORTFOLIO_SLIDESHOW_URL."css/portfolio-slideshow.min.css", false, $ps_options['version'], 'screen' ); 
 			}
 			
 		} else { /* If we're on the admin page */

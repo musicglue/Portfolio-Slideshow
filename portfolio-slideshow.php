@@ -17,7 +17,7 @@ define( 'PORTFOLIO_SLIDESHOW_PATH', plugin_dir_path( __FILE__ ) );
 
 define( 'PORTFOLIO_SLIDESHOW_LOCATION', plugin_basename(__FILE__) );
 
-define ( 'PORTFOLIO_SLIDESHOW_URL', plugins_url( '' ,  __FILE__ ) );
+define ( 'PORTFOLIO_SLIDESHOW_URL', '/wp-content/plugins/portfolio-slideshow/' );
 
 define( "PORTFOLIO_SLIDESHOW_VERSION", "1.5.0" );
 
