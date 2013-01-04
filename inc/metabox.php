@@ -11,11 +11,11 @@ if ( ! ps_plugin_is_active('portfolio-framework') ) {
 
 	function ps_metabox_extras() {
 		global $ps_options;
-		wp_register_style( 'ps-custom-post-type', plugins_url( 'admin/css/ps-custom-post-type.css', dirname(__FILE__) ), false, $ps_options['version'], 'screen' ); 
+		wp_register_style( 'ps-custom-post-type', PORTFOLIO_SLIDESHOW_URL.'admin/css/ps-custom-post-type.css', false, $ps_options['version'], 'screen' ); 
 		wp_enqueue_style( 'ps-custom-post-type' );
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-sortable');
-		wp_register_script( 'ps-custom-post-type', plugins_url( 'admin/js/ps-custom-post-type.js', dirname(__FILE__) ), false, $ps_options['version'], true); 
+		wp_register_script( 'ps-custom-post-type', PORTFOLIO_SLIDESHOW_URL.'admin/js/ps-custom-post-type.js', false, $ps_options['version'], true); 
 		wp_enqueue_script( 'ps-custom-post-type' );	
 	}
 
