@@ -62,6 +62,7 @@
 	
 		var psLoader, psHash, psFluid;
 		currSlide = new Array();
+		var psNoWrap = new Array();
 		psLoader = portfolioSlideshowOptions.psLoader;
 		psFluid = portfolioSlideshowOptions.psFluid;
 		psHash = portfolioSlideshowOptions.psHash;
@@ -71,7 +72,6 @@
 		} else { 
 			ie = false 
 		}
-			
 		
 		if (psLoader === true) { //if we're supposed to show a loader
 			$('.slideshow-wrapper').delay(1000).queue(function() {
@@ -106,6 +106,7 @@
 				slideshowwrapper.addClass('ie');
 			}
 
+			if ( psLoop[num] == true ) { psNoWrap[num] = 0 } else { psNoWrap[num] = true };
 				$(function () {
 					var index = 0, hash = window.location.hash;
 					if (/\d+/.exec(hash)) {
@@ -230,7 +231,7 @@
 					}
 	
 									
-					if ( psNoWrap[num] === true ) { //if wrapping is disabled, fade out the controls at the appropriate time
+					if ( psLoop[num] === false ) { //if wrapping is disabled, fade out the controls at the appropriate time
 						if (opts.currSlide === 0 ) {
 							slideshownav.find('.slideshow-prev, .sep').addClass('inactive');
 						} else {

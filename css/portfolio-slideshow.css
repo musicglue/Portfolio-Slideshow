@@ -45,7 +45,7 @@
 	max-width: none!important
 }
 
-.fluid.fade .slideshow-content img {
+.fluid .slideshow-content img {
 	max-width: 100%!important;
 	width: auto;
 	height: auto
@@ -57,12 +57,9 @@
 	clear: both
 }
 
-.fade .slideshow-content {
-	width: 100%
-}
-
 .slideshow-content {
-	margin: 0 0 7px 0
+	width: 100%;
+	margin: 0 0 7px 0;
 }
 
 .slideshow-nav {
@@ -108,6 +105,10 @@
 	display: none
 }
 
+.slideshow-wrapper .pager {
+	margin: 10px 0;
+}
+
 .slideshow-wrapper .pager img {
 	opacity: .5;
 	filter: alpha(opacity=50);
@@ -127,6 +128,7 @@
 .slideshow-wrapper .pager img:hover {
 	cursor: pointer
 }
+
 .slideshow-info {
 	font-size: .9em;
 	margin-right: 20px

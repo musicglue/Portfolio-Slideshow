@@ -19,7 +19,7 @@ $options = get_option( 'portfolio_slideshow_settings' );
 	
 	<div class="updated fade">
 	    <p style="line-height: 1.4em;"><?php _e ('Thanks for downloading Portfolio Slideshow! If you like it, please be sure to give us a positive rating in the <a href="http://wordpress.org/extend/plugins/portfolio-slideshow/">WordPress repository</a>, it means a lot to us.', 'port_slide'); ?></p>
-	  	<p style="line-height: 1.4em;"><?php _e ('If you like Portfolio Slideshow but need more advanced slideshow features, check out our newest plugin, <a href="http://madebyraygun.com/wordpress/plugins/portfolio-slideshow-pro">Portfolio Slideshow Pro</a>.', 'port_slide'); ?></p>
+	  	<p style="line-height: 1.4em;"><?php _e ('If you like Portfolio Slideshow but need more advanced slideshow features, check out our premium version of the plugin, <a href="http://madebyraygun.com/wordpress/plugins/portfolio-slideshow-pro/">Portfolio Slideshow Pro</a>.', 'port_slide'); ?></p>
 	  </div>
 	  
 	<div id="tabs">
@@ -138,19 +138,19 @@ $options = get_option( 'portfolio_slideshow_settings' );
 		</p>
 
 		<p>
-		<strong>Disable slideshow wrapping</strong>: 
+		<strong>Loop the slideshow</strong>: 
 		</p>
 		
 		<p>
-		<code>[portfolio_slideshow nowrap=true]</code>
+		<code>[portfolio_slideshow loop=true]</code>
 		</p>
 		
 		<p>
-		or enable it like this:
+		or disable slideshow looping like this:
 		</p>
 		
 		<p>
-		<code>[portfolio_slideshow nowrap=false]</code>
+		<code>[portfolio_slideshow loop=false]</code>
 		</p>
 		
 
@@ -225,8 +225,8 @@ $options = get_option( 'portfolio_slideshow_settings' );
 	</div><!--#tabs-2-->
 	</div><!--#tabs-->
 
-		<a href="http://madebyraygun.com"><img style="margin-top:30px;" src="<?php echo plugins_url( 'img/logo.png', __FILE__ );?>" width="225" height="70" alt="Made by Raygun" /></a>
-		<p>You're using Portfolio Slideshow, made by <a href="http://madebyraygun.com">Raygun</a>. Check out our <a href="http://madebyraygun.com/lab/" target="_blank">other plugins</a>, and if you have any problems, stop by our <a href="http://madebyraygun.com/support/forum/" target="_blank">support forum</a>!</p>
+		<a href="http://madebyraygun.com"><img style="margin-top:30px;" src="<?php echo plugins_url( 'img/logo.png', __FILE__ );?>?ver=1.4.0" width="60" height="60" alt="Made by Raygun" /></a>
+		<p>Made by <a href="http://madebyraygun.com">Raygun</a>, powered by <a href="http://madebyraygun.com/wp-engine">WP Engine</a>. Check out our <a href="http://madebyraygun.com/wordpress/" target="_blank">other plugins</a>, and if you have any problems, stop by our <a href="http://madebyraygun.com/support/" target="_blank">support forum</a>!</p>
 		</div>
 	<?php
 }
@@ -278,7 +278,7 @@ function portfolio_slideshow_admin_init(){
 	
 	add_settings_field(
 		'portfolio_slideshow_trans',
-		'Transition FX <span class="vtip" title="You can override these in the shortcode with any option that the jQuery Cycle plugin supports. Note: The scrollHorz transition does not work well with fluid-layout themes such as TwentyEleven.">?</span>',
+		'Transition FX <span class="vtip" title="You can override these in the shortcode with any option that the jQuery Cycle plugin supports.">?</span>',
 		'portfolio_slideshow_trans_input',
 		'portfolio_slideshow',
 		'portfolio_slideshow_display'
@@ -345,9 +345,9 @@ function portfolio_slideshow_admin_init(){
 	
 	
 	add_settings_field(
-		'portfolio_slideshow_nowrap',
-		'Disable slideshow wrapping <span class="vtip" title="Should the slideshow play through to the beginning after it gets to the end, or simply stop?">?</span>',
-		'portfolio_slideshow_nowrap_input',
+		'portfolio_slideshow_loop',
+		'Loop the slideshow <span class="vtip" title="Should the slideshow play through to the beginning after it gets to the end, or simply stop?">?</span>',
+		'portfolio_slideshow_loop_input',
 		'portfolio_slideshow',
 		'portfolio_slideshow_behavior'
 	);
@@ -394,10 +394,9 @@ function portfolio_slideshow_admin_init(){
 		'portfolio_slideshow_navigation'
 	);	
 	
-	
 	add_settings_field(
 		'portfolio_slideshow_jquery',
-		'jQuery version <span class="vtip" title="If you\'re having trouble with the Javascript effects, you can try an older version of jQuery, or disable it altogether. This sometimes helps if you have plugins or themes that rely on their own version of jQuery. For best results, leave this at the default setting.">?</span>',
+		'Load jQuery <span class="vtip" title="If you\'re having trouble with another plugin or theme that is loading jQuery, you can adjust this. For best results, leave this at the default setting.">?</span>',
 		'portfolio_slideshow_jquery_input',
 		'portfolio_slideshow',
 		'portfolio_slideshow_diagnostic'
@@ -502,10 +501,10 @@ function portfolio_slideshow_showloader_input() {
  
 <?php }
 
-function portfolio_slideshow_nowrap_input() {
+function portfolio_slideshow_loop_input() {
 	$options = get_option( 'portfolio_slideshow_options' );?>
 	
-	<input type="checkbox" name="portfolio_slideshow_options[nowrap]" value="true" <?php checked( "true", $options['nowrap'] ); ?> />
+	<input type="checkbox" name="portfolio_slideshow_options[loop]" value="true" <?php checked( "true", $options['loop'] ); ?> />
  
 <?php }
 
@@ -554,17 +553,18 @@ function portfolio_slideshow_pagerpos_input() {
 		<option value="disabled" <?php if ( $options['pagerpos'] == 'disabled' ) echo " selected='selected'";?>>disabled</option>
 	</select>
 <?php }
-
+				
 function portfolio_slideshow_jquery_input() {
-	$options = get_option( 'portfolio_slideshow_options' );?>
-	
-	<select name="portfolio_slideshow_options[jquery]" value="<?php echo $options[jquery]; ?>" />
-		<option value="1.7.1" <?php if ( $options['jquery'] == "1.7.1" ) echo " selected='selected'";?>>1.7.1</option>
-		<option value="1.4.4" <?php if ( $options['jquery'] == "1.4.4" ) echo " selected='selected'";?>>1.4.4</option>
-		<option value="disabled" <?php if ( $options['jquery'] == "disabled" ) echo " selected='selected'";?>>disabled</option>
-	</select>
-<?php }
 
+	$options = get_option( 'portfolio_slideshow_options' );?>
+		
+	<select name="portfolio_slideshow_options[jquery]" value="<?php echo $options[jquery]; ?>" />
+		<option value="wp" <?php if ( $options['jquery'] == 'wp' || $options['jquery'] == 'true' ) echo " selected='selected'";?>><?php _e( 'Use built-in WP jQuery', 'portfolio-slideshow-pro' );?></option>
+		<option value="force" <?php if ( $options['jquery'] == 'force' ) echo " selected='selected'";?>><?php _e( 'Force most recent jQuery', 'portfolio-slideshow-pro' );?></option>
+		<option value="disabled" <?php if ( $options['jquery'] == 'disabled' ) echo " selected='selected'";?>><?php _e( 'Do not load jQuery', 'portfolio-slideshow-pro' );?></option>
+	</select>
+		
+<?php }
 
 function portfolio_slideshow_debug_input() {
 	$options = get_option( 'portfolio_slideshow_options' );?>
@@ -608,11 +608,6 @@ function portfolio_slideshow_validate_options( $input ) {
 	if ( ! isset( $input['showdesc'] ) )
     $input['showdesc'] = null;
 	$input['showdesc'] = ( $input['showdesc'] == "true" ? "true" : "false" );
-	
-	/*if ( ! isset( $input['hovercaps'] ) )
-    $input['hovercaps'] = null;
-	$input['hovercaps'] = ( $input['hovercaps'] == "true" ? "true" : "false" );*/
-
 
 	if ( ! isset( $input['centered'] ) )
     $input['centered'] = null;
@@ -642,9 +637,9 @@ function portfolio_slideshow_validate_options( $input ) {
     $input['showhash'] = null;
 	$input['showhash'] = ( $input['showhash'] == "true" ? "true" : "false" );
 	
-	if ( ! isset( $input['nowrap'] ) )
-    $input['nowrap'] = null;
-	$input['nowrap'] = ( $input['nowrap'] == "true" ? "true" : "0" );
+	if ( ! isset( $input['loop'] ) )
+    $input['loop'] = null;
+	$input['loop'] = ( $input['loop'] == "true" ? "true" : "false" );
 	
 	if ( ! isset( $input['togglethumbs'] ) )
     $input['togglethumbs'] = null;

@@ -6,6 +6,16 @@ if ( $ps_options['version']  < PORTFOLIO_SLIDESHOW_VERSION ) { // If the version
 	require ( PORTFOLIO_SLIDESHOW_PATH . 'inc/upgrader.php' );
 }
 
+
+/* A small function to determine if a particular plugin is active */
+if ( ! function_exists( 'ps_plugin_is_active' ) ) {
+	function ps_plugin_is_active($plugin_var) {
+		return in_array( $plugin_var. '/' .$plugin_var. '.php', apply_filters( 'active_plugins',get_option( 'active_plugins' ) ) );
+	}
+}
+
+require ( PORTFOLIO_SLIDESHOW_PATH . 'inc/metabox.php' );
+
 $ps_options = get_option( 'portfolio_slideshow_options' ); 
 
 //lets set up the shortcode
@@ -99,22 +109,14 @@ if ( !function_exists('ps_setup') ) {
 		if( ! is_admin() ){
 		  // Output the javascript & css here
 		   
-			switch ( $ps_options['jquery'] ) {
-			
-				case "1.4.4" :	
-					wp_deregister_script( 'jquery' ); 
-					wp_register_script( 'jquery', ( "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" ), false, '1.4.4', false); 
-					wp_enqueue_script( 'jquery' );
-					break;
-		
-				case "disabled" :
-					// do nothing
-					break;
-					
-				default :
-					wp_enqueue_script( 'jquery' );
-					break;
-			} 
+		   // jQuery  
+			if ( $ps_options['jquery'] == "force" ) {
+				wp_deregister_script( 'jquery' ); 
+				wp_register_script( 'jquery', ( "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" ), false, '1', false); 
+				wp_enqueue_script( 'jquery' );
+			} elseif ( $ps_options['jquery'] == "true" || $ps_options['jquery'] == "wp" ) {
+				wp_enqueue_script( 'jquery' );
+			}
 			
 			//malsup cycle script
 			wp_register_script( 'cycle', plugins_url( 'js/jquery.cycle.all.min.js', dirname(__FILE__) ), false, '2.99', true ); 
@@ -151,7 +153,7 @@ if ( ! function_exists( 'portfolio_slideshow_head' ) ) {
 <!-- Portfolio Slideshow-->
 <noscript><link rel="stylesheet" type="text/css" href="' .  plugins_url( "css/portfolio-slideshow-noscript.css?ver=" . $ps_options['version'], dirname(__FILE__) ) . '" /></noscript>';
 
-	echo '<script type="text/javascript">/* <![CDATA[ */var psTimeout = new Array();  var psAutoplay = new Array();  var psFluid = new Array(); var psTrans = new Array(); var psSpeed = new Array(); var psNoWrap = new Array();/* ]]> */</script>
+	echo '<script type="text/javascript">/* <![CDATA[ */var psTimeout = new Array();  var psAutoplay = new Array();  var psFluid = new Array(); var psTrans = new Array(); var psSpeed = new Array(); var psLoop = new Array();/* ]]> */</script>
 <!--//Portfolio Slideshow-->
 ';
 	} // end portfolio_head 

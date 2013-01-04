@@ -12,7 +12,8 @@ function portfolio_slideshow_shortcode( $atts ) {
 
 	extract( shortcode_atts( array(
 		'size' => $ps_options['size'],
-		'nowrap' => $ps_options['nowrap'],
+		'nowrap' => '',
+		'loop' => $ps_options['loop'],
 		'speed' => $ps_options['speed'],
 		'trans' => $ps_options['trans'],
 		'timeout' => $ps_options['timeout'],
@@ -32,10 +33,12 @@ function portfolio_slideshow_shortcode( $atts ) {
 		'include' => ''
 	), $atts ) );
 	
-	
 	//mapping for people using older versions of the plugin
-	if ( $thumbs == "true" ) { $pagerpos = "bottom"; } 
-	
+	if ( $thumbs == "true" ) $pagerpos = "bottom";
+
+	/* Preserve the nowrap option if people are still using it */
+	if ( $nowrap == "false" || $loop == "true" ) { $loop = "true"; } else { $loop = "false"; }
+
 	//has a custom post id been declared or should we use current page ID?
 	if ( ! $id ) { $id = get_the_ID(); }
 
@@ -142,7 +145,7 @@ function portfolio_slideshow_shortcode( $atts ) {
 	if ( ! is_feed() ) { 
 
 	$slideshow = 
-		'<script type="text/javascript">/* <![CDATA[ */ psTimeout['.$i.']='.$timeout.';psAutoplay['.$i.']='.$autoplay.';psTrans['.$i.']=\''.$trans.'\';psNoWrap['.$i.']='.$nowrap.';psSpeed['.$i.']='.$speed.';/* ]]> */</script>
+		'<script type="text/javascript">/* <![CDATA[ */ psTimeout['.$i.']='.$timeout.';psAutoplay['.$i.']='.$autoplay.';psTrans['.$i.']=\''.$trans.'\';psLoop['.$i.']='.$loop.';psSpeed['.$i.']='.$speed.';/* ]]> */</script>
 		'; 
 	
 		//wrap the whole thing in a div for styling		
@@ -151,10 +154,6 @@ function portfolio_slideshow_shortcode( $atts ) {
 		if ( $fluid == "true" ) { 
 			$slideshow .= " fluid"; 
 		}
-
-		if ( $trans == 'fade') {
-			$slideshow .= ' fade';
-		}		
 
 		if ( $ps_options['showloader'] == "true" ) { 
 			$slideshow .= " showloader"; 
@@ -248,7 +247,7 @@ function portfolio_slideshow_shortcode( $atts ) {
 					break;	
 			}		
 			
-if ( $nowrap == "true" && $ps_count - 1 != $slideID || $nowrap != "true" ) { $slideshow .= '<a href="'.$imagelink.'">';}
+if ( $loop == "false" && $ps_count - 1 != $slideID || $loop != "false" ) { $slideshow .= '<a href="'.$imagelink.'">';}
 			
 /*
  * This is the part of the loop that actually returns the images
@@ -276,7 +275,7 @@ if ( $nowrap == "true" && $ps_count - 1 != $slideID || $nowrap != "true" ) { $sl
  * That's it for the images
  */			
 			
-			if ( $nowrap == "true" && $ps_count - 1 != $slideID || $nowrap !="true" ) { 
+			if ( $loop == "false" && $ps_count - 1 != $slideID || $loop !="false" ) { 
 						$slideshow .= "</a>";
 			}		
 		

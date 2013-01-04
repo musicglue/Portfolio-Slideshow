@@ -178,7 +178,7 @@ if ( get_option( 'portfolio_slideshow_options' ) === false ) { //If the 1.3 opti
 				'keyboardnav'	=>	"true", 
 				'infotxt'	=>	'of',
 				'allowfluid'	=>	'false',
-				'nowrap'	=>	"false",
+				'loop'	=>	"true",
 				'showhash'	=>	"false", 
 				'click'	=>	'advance', 
 				'click_target'	=>	'_blank', 
@@ -186,7 +186,7 @@ if ( get_option( 'portfolio_slideshow_options' ) === false ) { //If the 1.3 opti
 				'autoplay'	=>	'false', 
 				'exclude_featured'	=>	"false", 
 				'showloader'	=>	"false",
-				'jquery'	=>	'1.7.1',
+				'jquery'	=>	'true',
 				'fancybox'	=>	"true",
 				'cycle'	=>	"true",
 				'load_scripts'	=>	"true", 
@@ -202,6 +202,15 @@ if ( get_option( 'portfolio_slideshow_options' ) === false ) { //If the 1.3 opti
 	if ( $ps_options['version'] < '1.3.4' ) {
 		if ( $ps_options['jquery'] = '1.6.1' ) {
 			$ps_options['jquery'] = '1.7.1';
+		}
+	} 
+
+	if ( $ps_options['version'] < '1.4.0' ) {
+		$ps_options['jquery'] = 'true';
+		if ( $ps_options['nowrap'] == "false" ) {
+			$ps_options['loop'] = 'true';
+		} else {
+			$ps_options['loop'] = 'true';
 		}
 	} 
 	
